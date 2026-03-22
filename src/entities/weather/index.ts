@@ -1,3 +1,2 @@
-export { currentWeatherQueries } from "./api/currentWeather.query";
-export { forecastWeatherQueries } from "./api/forecastWeather.query";
+export { weatherQueries } from "./api/query";
 export type { CurrentWeather, ForecastWeather } from "./model/types";
