@@ -30,7 +30,7 @@ const openWeatherForecastWindSchema = z.object({
 });
 
 const openWeatherForecastPrecipitationSchema = z.object({
-  "1h": z.number(),
+  "3h": z.number(),
 });
 
 const openWeatherForecastSysSchema = z.object({

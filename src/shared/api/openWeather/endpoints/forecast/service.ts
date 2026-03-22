@@ -9,7 +9,7 @@ export async function getForecastWeather(
   lon: number,
 ): Promise<OpenWeatherForecastResponse> {
   const data = await openWeatherApiClient.get<OpenWeatherForecastResponse>(
-    "data/2.5/forecast/hourly",
+    "data/2.5/forecast",
     {
       searchParams: {
         lat,
