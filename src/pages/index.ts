@@ -1,2 +1,3 @@
 export { MainPage } from "./main";
-export { NotFoundPage } from "./404";
+export { NotFoundPage } from "./error/not-found";
+export { UnexpectedErrorPage } from "./error/unexpected";
