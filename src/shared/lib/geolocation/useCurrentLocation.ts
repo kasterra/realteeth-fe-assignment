@@ -3,7 +3,7 @@ import { getCurrentPosition } from "./getCurrentPosition";
 
 type CurrentLocationState =
   | {
-      status: "idle" | "pending";
+      status: "pending";
       data: null;
       error: null;
     }
