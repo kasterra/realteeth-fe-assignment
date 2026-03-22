@@ -15,4 +15,15 @@ export const locationQueries = {
       gcTime: 1000 * 60 * 60 * 24,
     });
   },
+  reverseGeocode: (lat: number, lon: number) => {
+    return queryOptions({
+      queryKey: ["location", "name", lat, lon],
+      queryFn: async () => {
+        const result = await getGeocodeResult(`${lat},${lon}`);
+        const location = mapOpenCageGeocodeResponseToLocation(result);
+        return location;
+      },
+      staleTime: 1000 * 60 * 10,
+    });
+  },
 };

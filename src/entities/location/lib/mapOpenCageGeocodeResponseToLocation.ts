@@ -11,6 +11,7 @@ export function mapOpenCageGeocodeResponseToLocation(
   }
 
   return {
+    name: firstResult.formatted,
     lat: firstResult.geometry.lat,
     lon: firstResult.geometry.lng,
   };

@@ -27,9 +27,9 @@ const openCageMercatorSchema = z.object({
 });
 
 const openCageOsmSchema = z.object({
-  edit_url: z.url(),
-  note_url: z.url(),
-  url: z.url(),
+  edit_url: z.url().optional(),
+  note_url: z.url().optional(),
+  url: z.url().optional(),
 });
 
 const openCageUnM49Schema = z.object({
@@ -44,7 +44,7 @@ const openCageCurrencySchema = z.object({
   iso_numeric: z.string(),
   name: z.string(),
   smallest_denomination: z.number(),
-  subunit: z.string(),
+  subunit: z.string().optional(),
   subunit_to_unit: z.number(),
   symbol: z.string(),
   symbol_first: z.number(),
@@ -54,7 +54,7 @@ const openCageCurrencySchema = z.object({
 const openCageRoadInfoSchema = z.object({
   drive_on: z.string(),
   road: z.string(),
-  road_type: z.string(),
+  road_type: z.string().optional(),
   speed_in: z.string(),
 });
 
