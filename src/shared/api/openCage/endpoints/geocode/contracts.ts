@@ -53,7 +53,7 @@ const openCageCurrencySchema = z.object({
 
 const openCageRoadInfoSchema = z.object({
   drive_on: z.string(),
-  road: z.string(),
+  road: z.string().optional(),
   road_type: z.string().optional(),
   speed_in: z.string(),
 });
