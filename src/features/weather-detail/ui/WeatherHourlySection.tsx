@@ -14,7 +14,7 @@ export function WeatherHourlySection({ weather }: { weather: WeatherDetail }) {
       <div className="space-y-1">
         <h2 className="text-lg font-semibold text-stone-950">시간대별 기온</h2>
         <p className="text-sm text-stone-500">
-          당일 기준으로 제공되는 3시간 단위 예보를 보여줍니다.
+          당일 기준으로 제공되는 시간 단위 예보를 보여줍니다.
         </p>
       </div>
 
