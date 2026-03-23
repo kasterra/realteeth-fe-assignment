@@ -6,7 +6,11 @@ import {
   MAX_FAVORITE_LOCATION_COUNT,
 } from "../config";
 import { createFavoriteLocationId } from "../lib";
-import type { FavoriteLocationItem, FavoriteLocationState } from "./types";
+import type {
+  AddFavoriteResult,
+  FavoriteLocationItem,
+  FavoriteLocationState,
+} from "./types";
 
 function hasSameLocation(
   favorite: FavoriteLocationItem,
@@ -25,32 +29,38 @@ export const useFavoriteLocationStore = create<FavoriteLocationState>()(
 
       (set, get) => ({
         addFavorite: (location, alias) => {
-          set((state) => {
-            if (
-              state.favorites.some((favorite) =>
-                hasSameLocation(favorite, location),
-              )
-            ) {
-              return state;
-            }
+          const state = get();
 
-            if (state.favorites.length >= MAX_FAVORITE_LOCATION_COUNT) {
-              throw new Error(
-                `즐겨찾기는 최대 ${MAX_FAVORITE_LOCATION_COUNT}개까지 추가할 수 있습니다.`,
-              );
-            }
-
-            const nextFavorite: FavoriteLocationItem = {
-              id: createFavoriteLocationId(location),
-              location,
-              alias: alias?.trim() || location.name,
-              createdAt: Date.now(),
-            };
-
+          if (
+            state.favorites.some((favorite) => hasSameLocation(favorite, location))
+          ) {
             return {
-              favorites: [...state.favorites, nextFavorite],
-            };
-          });
+              ok: false,
+              reason: "duplicate",
+              message: "이미 즐겨찾기에 추가된 장소입니다.",
+            } satisfies AddFavoriteResult;
+          }
+
+          if (state.favorites.length >= MAX_FAVORITE_LOCATION_COUNT) {
+            return {
+              ok: false,
+              reason: "limit_exceeded",
+              message: `즐겨찾기는 최대 ${MAX_FAVORITE_LOCATION_COUNT}개까지 추가할 수 있습니다.`,
+            } satisfies AddFavoriteResult;
+          }
+
+          const nextFavorite: FavoriteLocationItem = {
+            id: createFavoriteLocationId(location),
+            location,
+            alias: alias?.trim() || location.name,
+            createdAt: Date.now(),
+          };
+
+          set((currentState) => ({
+            favorites: [...currentState.favorites, nextFavorite],
+          }));
+
+          return { ok: true } satisfies AddFavoriteResult;
         },
         removeFavorite: (id) => {
           set((state) => ({
