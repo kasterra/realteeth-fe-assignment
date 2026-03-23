@@ -4,10 +4,8 @@ interface WeatherDetailSummary {
     measuredAt: number;
     timezoneOffset: number;
     temperature: number;
-  };
-  today: {
-    lowestTemperature: number;
-    highestTemperature: number;
+    minTemperature: number;
+    maxTemperature: number;
   };
 }
 
@@ -63,13 +61,13 @@ export function WeatherSummarySection({
           <div className="rounded-3xl bg-white px-4 py-4">
             <p className="text-sm text-stone-500">당일 최저</p>
             <p className="mt-2 text-2xl font-semibold text-stone-900">
-              {formatTemperature(weather.today.lowestTemperature)}
+              {formatTemperature(weather.current.minTemperature)}
             </p>
           </div>
           <div className="rounded-3xl bg-white px-4 py-4">
             <p className="text-sm text-stone-500">당일 최고</p>
             <p className="mt-2 text-2xl font-semibold text-stone-900">
-              {formatTemperature(weather.today.highestTemperature)}
+              {formatTemperature(weather.current.maxTemperature)}
             </p>
           </div>
         </div>
