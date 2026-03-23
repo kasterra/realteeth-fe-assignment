@@ -1,7 +1,8 @@
 import { weatherQueries } from "@/entities/weather";
 import { ErrorBoundary, Suspense } from "@suspensive/react";
-import { SuspenseQuery } from "@suspensive/react-query";
+import { SuspenseQueries } from "@suspensive/react-query";
 import { QueryErrorResetBoundary } from "@tanstack/react-query";
+import { getLocalDateKey } from "@/features/weather-detail/lib/getLocalDateKey";
 
 function formatTemperature(value: number): string {
   return `${Math.round(value)}°C`;
@@ -43,40 +44,63 @@ export function FavoriteLocationWeatherSummary({
               </section>
             }
           >
-            <SuspenseQuery
-              {...weatherQueries.getCurrentWeatherByCoord(lat, lon)}
+            <SuspenseQueries
+              queries={[
+                weatherQueries.getCurrentWeatherByCoord(lat, lon),
+                weatherQueries.getForecastWeatherByCoord(lat, lon),
+              ]}
             >
-              {({ data: current }) => (
-                <section className="rounded-3xl bg-stone-50 px-4 py-5">
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="rounded-2xl bg-white px-3 py-4 text-center">
-                      <p className="text-xs font-medium uppercase tracking-wide text-stone-500">
-                        현재
-                      </p>
-                      <p className="mt-2 text-lg font-semibold text-stone-950">
-                        {formatTemperature(current.temperature)}
-                      </p>
+              {([currentQuery, forecastQuery]) => {
+                const current = currentQuery.data;
+                const forecast = forecastQuery.data;
+                const todayKey = getLocalDateKey(
+                  current.measuredAt,
+                  current.timezoneOffset,
+                );
+                const todayDaily = forecast.daily.find(
+                  (dailyWeather) =>
+                    getLocalDateKey(
+                      dailyWeather.timestamp,
+                      forecast.timezoneOffset,
+                    ) === todayKey,
+                );
+                const lowestTemperature =
+                  todayDaily?.minTemperature ?? current.temperature;
+                const highestTemperature =
+                  todayDaily?.maxTemperature ?? current.temperature;
+
+                return (
+                  <section className="rounded-3xl bg-stone-50 px-4 py-5">
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="rounded-2xl bg-white px-3 py-4 text-center">
+                        <p className="text-xs font-medium uppercase tracking-wide text-stone-500">
+                          현재
+                        </p>
+                        <p className="mt-2 text-lg font-semibold text-stone-950">
+                          {formatTemperature(current.temperature)}
+                        </p>
+                      </div>
+                      <div className="rounded-2xl bg-white px-3 py-4 text-center">
+                        <p className="text-xs font-medium uppercase tracking-wide text-stone-500">
+                          최저
+                        </p>
+                        <p className="mt-2 text-lg font-semibold text-stone-950">
+                          {formatTemperature(lowestTemperature)}
+                        </p>
+                      </div>
+                      <div className="rounded-2xl bg-white px-3 py-4 text-center">
+                        <p className="text-xs font-medium uppercase tracking-wide text-stone-500">
+                          최고
+                        </p>
+                        <p className="mt-2 text-lg font-semibold text-stone-950">
+                          {formatTemperature(highestTemperature)}
+                        </p>
+                      </div>
                     </div>
-                    <div className="rounded-2xl bg-white px-3 py-4 text-center">
-                      <p className="text-xs font-medium uppercase tracking-wide text-stone-500">
-                        최저
-                      </p>
-                      <p className="mt-2 text-lg font-semibold text-stone-950">
-                        {formatTemperature(current.minTemperature)}
-                      </p>
-                    </div>
-                    <div className="rounded-2xl bg-white px-3 py-4 text-center">
-                      <p className="text-xs font-medium uppercase tracking-wide text-stone-500">
-                        최고
-                      </p>
-                      <p className="mt-2 text-lg font-semibold text-stone-950">
-                        {formatTemperature(current.maxTemperature)}
-                      </p>
-                    </div>
-                  </div>
-                </section>
-              )}
-            </SuspenseQuery>
+                  </section>
+                );
+              }}
+            </SuspenseQueries>
           </Suspense>
         </ErrorBoundary>
       )}

@@ -64,18 +64,13 @@ export function WeatherDetailCard({
                       forecast.timezoneOffset,
                     ) === todayKey,
                 );
-                const lowCandidates = [
-                  current.temperature,
-                  ...todayHourly.map(
-                    (hourlyWeather) => hourlyWeather.minTemperature,
-                  ),
-                ];
-                const highCandidates = [
-                  current.temperature,
-                  ...todayHourly.map(
-                    (hourlyWeather) => hourlyWeather.maxTemperature,
-                  ),
-                ];
+                const todayDaily = forecast.daily.find(
+                  (dailyWeather) =>
+                    getLocalDateKey(
+                      dailyWeather.timestamp,
+                      forecast.timezoneOffset,
+                    ) === todayKey,
+                );
 
                 return (
                   <section className="overflow-hidden rounded-[2.25rem] bg-white p-3 shadow-sm sm:p-4">
@@ -85,8 +80,10 @@ export function WeatherDetailCard({
                           locationName,
                           current,
                           today: {
-                            lowestTemperature: Math.min(...lowCandidates),
-                            highestTemperature: Math.max(...highCandidates),
+                            lowestTemperature:
+                              todayDaily?.minTemperature ?? current.temperature,
+                            highestTemperature:
+                              todayDaily?.maxTemperature ?? current.temperature,
                           },
                         }}
                       />

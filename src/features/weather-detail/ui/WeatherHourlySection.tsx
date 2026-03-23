@@ -5,8 +5,6 @@ interface WeatherDetail {
   todayHourly: {
     timestamp: number;
     temperature: number;
-    minTemperature: number;
-    maxTemperature: number;
   }[];
 }
 

@@ -9,6 +9,9 @@ export interface ForecastWeather {
   hourly: {
     timestamp: number;
     temperature: number;
+  }[];
+  daily: {
+    timestamp: number;
     minTemperature: number;
     maxTemperature: number;
   }[];
