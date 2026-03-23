@@ -8,7 +8,5 @@ export function mapOpenWeatherCurrentResponseToCurrentWeather(
     measuredAt: current.dt,
     timezoneOffset: current.timezone,
     temperature: current.main.temp,
-    minTemperature: current.main.temp_min,
-    maxTemperature: current.main.temp_max,
   };
 }

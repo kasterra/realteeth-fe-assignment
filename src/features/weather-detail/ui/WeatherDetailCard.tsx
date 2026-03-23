@@ -39,7 +39,7 @@ export function WeatherDetailCard({
             fallback={
               <section className="rounded-3xl bg-stone-100 p-6 shadow-sm">
                 <p className="text-sm text-stone-500">
-                  날씨 정보를 불러오는 중입니다.
+                  날씨 정보를 불러오는 중...
                 </p>
               </section>
             }
@@ -64,6 +64,18 @@ export function WeatherDetailCard({
                       forecast.timezoneOffset,
                     ) === todayKey,
                 );
+                const lowCandidates = [
+                  current.temperature,
+                  ...todayHourly.map(
+                    (hourlyWeather) => hourlyWeather.minTemperature,
+                  ),
+                ];
+                const highCandidates = [
+                  current.temperature,
+                  ...todayHourly.map(
+                    (hourlyWeather) => hourlyWeather.maxTemperature,
+                  ),
+                ];
 
                 return (
                   <section className="overflow-hidden rounded-[2.25rem] bg-white p-3 shadow-sm sm:p-4">
@@ -72,6 +84,10 @@ export function WeatherDetailCard({
                         weather={{
                           locationName,
                           current,
+                          today: {
+                            lowestTemperature: Math.min(...lowCandidates),
+                            highestTemperature: Math.max(...highCandidates),
+                          },
                         }}
                       />
                       <WeatherHourlySection
