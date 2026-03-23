@@ -1,0 +1,4 @@
+export {
+  FAVORITE_LOCATION_STORAGE_KEY,
+  MAX_FAVORITE_LOCATION_COUNT,
+} from "./constants";
