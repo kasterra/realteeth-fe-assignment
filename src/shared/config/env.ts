@@ -9,6 +9,5 @@ function getRequiredEnv(name: string): string {
 }
 
 export const env = {
-  OPEN_WEATHER_API_KEY: getRequiredEnv("VITE_OPEN_WEATHER_API_KEY"),
   OPENCAGE_API_KEY: getRequiredEnv("VITE_OPENCAGE_API_KEY"),
 } as const;
