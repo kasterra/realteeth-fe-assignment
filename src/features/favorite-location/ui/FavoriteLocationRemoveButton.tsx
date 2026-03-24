@@ -7,7 +7,9 @@ interface FavoriteLocationRemoveButtonProps {
 export function FavoriteLocationRemoveButton({
   id,
 }: FavoriteLocationRemoveButtonProps) {
-  const removeFavorite = useFavoriteLocationStore((state) => state.removeFavorite);
+  const removeFavorite = useFavoriteLocationStore(
+    (state) => state.removeFavorite,
+  );
 
   return (
     <button

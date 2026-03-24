@@ -4,6 +4,7 @@ import {
   FavoriteLocationRemoveButton,
 } from "@/features/favorite-location";
 import { useState } from "react";
+import { Link } from "react-router";
 import { FavoriteLocationWeatherSummary } from "./FavoriteLocationWeatherSummary";
 
 export function FavoriteLocationCard({
@@ -41,7 +42,10 @@ export function FavoriteLocationCard({
             </div>
           ) : (
             <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0 flex-1 space-y-1">
+              <Link
+                to={`/favorite-detail/${encodeURIComponent(favorite.id)}`}
+                className="min-w-0 flex-1 space-y-1 rounded-2xl transition hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-stone-400"
+              >
                 <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
                   Saved Place
                 </p>
@@ -53,7 +57,7 @@ export function FavoriteLocationCard({
                     {favorite.location.name}
                   </p>
                 ) : null}
-              </div>
+              </Link>
               <div className="flex shrink-0 flex-col items-center gap-2">
                 <button
                   type="button"
