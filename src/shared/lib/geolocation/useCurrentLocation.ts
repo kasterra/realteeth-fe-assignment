@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { normalizeGeolocationError } from "./error";
 import { getCurrentPosition } from "./getCurrentPosition";
 
 type CurrentLocationState =
@@ -56,10 +57,7 @@ export function useCurrentLocation(
         setState({
           status: "error",
           data: null,
-          error:
-            error instanceof Error
-              ? error
-              : new Error("현재 위치를 가져오지 못했습니다."),
+          error: normalizeGeolocationError(error),
         });
       },
     );
