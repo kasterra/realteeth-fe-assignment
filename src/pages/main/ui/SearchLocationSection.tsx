@@ -6,7 +6,7 @@ import {
 import { SearchLocationResultAction } from "./SearchLocationResultAction";
 
 export function SearchLocationSection() {
-  const { form, submittedQuery, searchQuery, onSubmit, reset } =
+  const { form, submittedQuery, searchQuery, searchResult, pagination, onSubmit, reset } =
     useLocationSearch();
 
   return (
@@ -27,7 +27,9 @@ export function SearchLocationSection() {
       />
       <LocationSearchResultList
         query={submittedQuery}
-        result={searchQuery}
+        searchQuery={searchQuery}
+        searchResult={searchResult}
+        pagination={pagination}
         renderResultAction={(locationName) => (
           <SearchLocationResultAction locationName={locationName} />
         )}

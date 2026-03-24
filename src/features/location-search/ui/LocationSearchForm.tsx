@@ -19,7 +19,7 @@ export function LocationSearchForm({
     >
       <input
         {...register("query", { required: true })}
-        placeholder="지역명 또는 주소를 입력하세요"
+        placeholder="지역명을 입력하세요 (대한민국 한정)"
         className="h-12 flex-1 rounded-full bg-white px-5 text-sm text-stone-900 outline-none ring-1 ring-transparent transition placeholder:text-stone-400 focus:ring-stone-300"
       />
       <div className="flex gap-2">
