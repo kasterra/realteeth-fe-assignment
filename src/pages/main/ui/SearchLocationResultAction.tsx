@@ -32,5 +32,10 @@ export function SearchLocationResultAction({
     );
   }
 
-  return <FavoriteLocationToggleButton location={locationQuery.data} />;
+  return (
+    <FavoriteLocationToggleButton
+      location={locationQuery.data}
+      alias={geocodeQuery}
+    />
+  );
 }
