@@ -15,14 +15,14 @@ export function LocationSearchForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col gap-3 rounded-[2.25rem] bg-stone-100 p-4 shadow-sm sm:flex-row"
+      className="flex flex-col gap-3 rounded-[2.25rem] bg-stone-100 p-4 shadow-sm md:flex-row"
     >
       <input
         {...register("query", { required: true })}
         placeholder="지역명을 입력하세요 (대한민국 한정)"
-        className="h-12 flex-1 rounded-full bg-white px-5 text-sm text-stone-900 outline-none ring-1 ring-transparent transition placeholder:text-stone-400 focus:ring-stone-300"
+        className="h-12 w-full min-w-0 rounded-full bg-white px-5 text-sm text-stone-900 outline-none ring-1 ring-transparent transition placeholder:text-stone-400 focus:ring-stone-300 md:flex-1"
       />
-      <div className="flex gap-2">
+      <div className="grid grid-cols-2 gap-2 md:flex md:shrink-0">
         <button
           type="submit"
           className="h-12 rounded-full bg-stone-950 px-5 text-sm font-medium text-white transition hover:bg-stone-800"
