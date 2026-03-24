@@ -14,9 +14,9 @@ export function FavoriteLocationCard({
   const [isEditingAlias, setIsEditingAlias] = useState(false);
 
   return (
-    <article className="overflow-hidden rounded-[2rem] bg-stone-100 p-3 shadow-sm">
+    <article className="overflow-hidden rounded-4xl bg-stone-100 p-3 shadow-sm">
       <div className="space-y-3">
-        <div className="rounded-[1.5rem] bg-white px-4 py-4">
+        <div className="rounded-3xl bg-white px-4 py-4">
           {isEditingAlias ? (
             <div className="space-y-3">
               <div className="flex items-center justify-between gap-3">
@@ -24,7 +24,6 @@ export function FavoriteLocationCard({
                   Saved Place
                 </p>
                 <div className="flex items-center gap-2">
-                  <FavoriteLocationRemoveButton id={favorite.id} />
                   <button
                     type="button"
                     onClick={() => setIsEditingAlias(false)}
@@ -42,7 +41,7 @@ export function FavoriteLocationCard({
             </div>
           ) : (
             <div className="flex items-start justify-between gap-3">
-              <div className="space-y-1">
+              <div className="min-w-0 flex-1 space-y-1">
                 <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
                   Saved Place
                 </p>
@@ -50,11 +49,12 @@ export function FavoriteLocationCard({
                   {favorite.alias}
                 </h3>
                 {favorite.alias !== favorite.location.name ? (
-                  <p className="text-sm text-stone-500">{favorite.location.name}</p>
+                  <p className="text-sm text-stone-500">
+                    {favorite.location.name}
+                  </p>
                 ) : null}
               </div>
-              <div className="flex items-center gap-2">
-                <FavoriteLocationRemoveButton id={favorite.id} />
+              <div className="flex shrink-0 flex-col items-center gap-2">
                 <button
                   type="button"
                   onClick={() => setIsEditingAlias(true)}
@@ -62,6 +62,7 @@ export function FavoriteLocationCard({
                 >
                   수정
                 </button>
+                <FavoriteLocationRemoveButton id={favorite.id} />
               </div>
             </div>
           )}
